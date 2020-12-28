@@ -463,5 +463,5 @@ class SnowProgram {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new SnowProgram(document.body, window.snowConfig).render();
+  window.snow = new SnowProgram(document.body, window.snowConfig).render();
 });
