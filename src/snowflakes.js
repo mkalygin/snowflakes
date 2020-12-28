@@ -1,6 +1,9 @@
 // This snow effect is based on Codepen:
 // https://codepen.io/bsehovac/pen/GPwXxq
-
+//
+// Original author of the Codepen:
+// https://github.com/bsehovac
+//
 // To enable it on any page insert the following snippet to your HTML:
 // <script type="text/javascript">
 //   var snowConfig = {
