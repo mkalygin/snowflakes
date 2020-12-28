@@ -128,7 +128,7 @@ class SnowProgram {
       width: '100vw',
       height: '100vh',
       background: 'transparent',
-      'z-index': -1,
+      'pointer-events': 'none',
     };
 
     this.CAMERA = {
