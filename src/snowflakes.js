@@ -347,16 +347,13 @@ class SnowProgram {
       size.push((5 * Math.random() * 5 * vh * dpi) / 1000);
     }
 
-    return {
-      width,
-      height,
-      depth,
-      position,
-      color,
-      size,
-      rotation,
-      speed,
-    };
+    this.setUniform('worldSize', [width, height, depth]);
+
+    this.setBuffer('position', position);
+    this.setBuffer('color', color);
+    this.setBuffer('rotation', rotation);
+    this.setBuffer('size', size);
+    this.setBuffer('speed', speed);
   }
 
   setProjection(aspect) {
@@ -395,7 +392,10 @@ class SnowProgram {
       previous: window.performance.now(),
     };
 
-    window.requestAnimationFrame(this.update);
+    if (this.raf) window.cancelAnimationFrame(this.raf);
+    this.raf = window.requestAnimationFrame(this.update);
+
+    return this;
   }
 
   resize() {
@@ -405,31 +405,15 @@ class SnowProgram {
     const aspect = vw / vh;
     const dpi = window.devicePixelRatio;
 
-    const {
-      width,
-      height,
-      depth,
-      position,
-      color,
-      size,
-      rotation,
-      speed,
-    } = this.initSnowflakes(vw, vh, dpi);
-
     $canvas.width = vw * dpi;
     $canvas.height = vh * dpi;
 
     gl.viewport(0, 0, vw * dpi, vh * dpi);
     gl.clearColor(0, 0, 0, 0);
 
-    this.setUniform('projection', this.setProjection(aspect));
-    this.setUniform('worldSize', [width, height, depth]);
+    this.initSnowflakes(vw, vh, dpi);
 
-    this.setBuffer('position', position);
-    this.setBuffer('color', color);
-    this.setBuffer('rotation', rotation);
-    this.setBuffer('size', size);
-    this.setBuffer('speed', speed);
+    this.setUniform('projection', this.setProjection(aspect));
   }
 
   update(timestamp) {
@@ -458,7 +442,7 @@ class SnowProgram {
 
     this.time.previous = timestamp;
 
-    window.requestAnimationFrame(this.update);
+    this.raf = window.requestAnimationFrame(this.update);
   }
 }
 
