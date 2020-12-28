@@ -168,6 +168,8 @@ class SnowProgram {
 
     this.resize = this.resize.bind(this);
     this.update = this.update.bind(this);
+
+    window.addEventListener('resize', this.resize);
   }
 
   initCanvas() {
@@ -394,7 +396,7 @@ class SnowProgram {
 
     this.updateBuffers();
     this.updateUniforms();
-    this.resize();
+    this.resize(true);
 
     this.time = {
       start: window.performance.now(),
@@ -407,7 +409,7 @@ class SnowProgram {
     return this;
   }
 
-  resize() {
+  resize(updateSnowflakes = false) {
     const { $canvas, gl } = this;
     const vw = $canvas.offsetWidth;
     const vh = $canvas.offsetHeight;
@@ -420,7 +422,9 @@ class SnowProgram {
     gl.viewport(0, 0, vw * dpi, vh * dpi);
     gl.clearColor(0, 0, 0, 0);
 
-    this.initSnowflakes(vw, vh, dpi);
+    if (updateSnowflakes === true) {
+      this.initSnowflakes(vw, vh, dpi);
+    }
 
     this.setUniform('projection', this.setProjection(aspect));
   }

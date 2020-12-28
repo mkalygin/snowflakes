@@ -4,21 +4,21 @@
   <title>Snowflakes Demo</title>
 
   <style>
-    canvas {
-      background: black !important;
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(to bottom, #57c1eb 0%, #246fa8 100%);
     }
   </style>
 </head>
 <body>
   <script type="text/javascript">
     var snowConfig = {
-      color: [0, 0.5, 1],
+      color: [161 / 256, 197 / 256, 231 / 256],
+      count: 1000,
+      opacity: 0.8,
+      density: 1 / 50,
     };
-
-    setTimeout(() => {
-      snow.color = [1, 0, 0];
-      snow.render();
-    }, 3000);
   </script>
   <script type="text/javascript" src="./snowflakes.js" defer></script>
 </body>
